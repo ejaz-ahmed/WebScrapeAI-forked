@@ -1,0 +1,14 @@
+The package requirements for this Python program are:
+- requests
+- BeautifulSoup
+- csv
+- matplotlib
+- nltk
+
+To download the required NLTK data, you need to execute the following code:
+```python
+import nltk
+nltk.download('vader_lexicon')
+```
+
+Please note that the nltk.download('vader_lexicon') line is used to download the sentiment analysis lexicon, which is required in the program.
