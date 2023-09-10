@@ -1,12 +1,12 @@
+import time
+import schedule
+from nltk.sentiment import SentimentIntensityAnalyzer
 import requests
 from bs4 import BeautifulSoup
 import csv
 import matplotlib.pyplot as plt
 import nltk
 nltk.download('vader_lexicon')
-from nltk.sentiment import SentimentIntensityAnalyzer
-import schedule
-import time
 
 
 class WebScrapingBot:
@@ -30,7 +30,8 @@ class WebScrapingBot:
 
     def fetch_url(self, search_query):
         try:
-            response = requests.get(f"https://www.google.com/search?q={search_query}")
+            response = requests.get(
+                f"https://www.google.com/search?q={search_query}")
             if response.status_code == 200:
                 soup = BeautifulSoup(response.content, 'html.parser')
                 url = soup.find('cite').get_text()
@@ -59,10 +60,12 @@ class WebScrapingBot:
         if parsed_data is not None:
             text = parsed_data["text"]
             sia = SentimentIntensityAnalyzer()
-            sentiment_scores = [sia.polarity_scores(sentence)["compound"] for sentence in nltk.sent_tokenize(text)]
+            sentiment_scores = [sia.polarity_scores(
+                sentence)["compound"] for sentence in nltk.sent_tokenize(text)]
             self.data_processor.set_processed_data(sentiment_scores)
         else:
-            self.error_handler.log_error("No parsed data available for processing.")
+            self.error_handler.log_error(
+                "No parsed data available for processing.")
 
     def store_data(self):
         processed_data = self.data_processor.get_processed_data()
@@ -72,7 +75,8 @@ class WebScrapingBot:
                 writer.writerow(["Sentiment Score"])
                 writer.writerows([[score] for score in processed_data])
         else:
-            self.error_handler.log_error("No processed data available for storage.")
+            self.error_handler.log_error(
+                "No processed data available for storage.")
 
     def visualize_data(self):
         processed_data = self.data_processor.get_processed_data()
@@ -83,7 +87,8 @@ class WebScrapingBot:
             plt.title("Sentiment Analysis")
             plt.show()
         else:
-            self.error_handler.log_error("No processed data available for visualization.")
+            self.error_handler.log_error(
+                "No processed data available for visualization.")
 
     def schedule_task(self):
         self.scheduler.schedule(self.run)
