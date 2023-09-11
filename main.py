@@ -1,11 +1,14 @@
-import time
-import schedule
-from nltk.sentiment import SentimentIntensityAnalyzer
-import requests
-from bs4 import BeautifulSoup
-import csv
 import matplotlib.pyplot as plt
+import csv
+from bs4 import BeautifulSoup
+import requests
+from nltk.sentiment import SentimentIntensityAnalyzer
 import nltk
+import schedule
+import time
+Optimized Python script:
+
+
 nltk.download('vader_lexicon')
 
 
@@ -18,8 +21,7 @@ class WebScrapingBot:
         self.error_handler = ErrorHandler()
 
     def run(self):
-        self.user_interface.collect_search_query()
-        search_query = self.user_interface.get_search_query()
+        search_query = self.user_interface.collect_search_query()
         url = self.fetch_url(search_query)
         if url is not None:
             self.parse_web_page(url)
@@ -100,8 +102,6 @@ class UserInterface:
 
     def collect_search_query(self):
         self.search_query = input("Enter your search query: ")
-
-    def get_search_query(self):
         return self.search_query
 
 
